@@ -26,3 +26,6 @@ VAR_NAME [a-zA-Z][a-zA-Z0-9]*
 "restar_uno"		{ return RU; }
 "es"			{ return ES; }
 %%
+void main() {
+ yylex();
+}
