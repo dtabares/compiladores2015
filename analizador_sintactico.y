@@ -2,14 +2,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+
+int evaluarExpresion(int exp1, char operador, int exp2);
 %}
 
 %union {
-  int numero
-  char* string
-  char  simbolo
-  char[255] variable
-}
+  int numero;
+  char* string;
+  char  simbolo;
+  char variable[255];
+};
 
 /* Inicio Declaraciones */
 /* Son de la forma:
@@ -42,8 +44,9 @@
 %token <numero> NUMBER
 %token OPSL
 %token VAR
-%left OPS
-%left OPM
+%left <simbolo> OPS
+%left <simbolo> OPM
+%type <numero> expresion
 
 /* Fin Declaraciones */
 
@@ -57,12 +60,43 @@ expresion : expresion Ops_Suma expresion
 ;
 */
 
+expresion: expresion OPS expresion {{ int resultado = evaluarExpresion($1,$2,$3); $$ = resultado;}}
+          | NUMBER  {{$$ = $1;}};
+
 %%
 
 /* Código de Usuario */
 
 
+int main() {
+  yyparse();
+  return 0;
+}
 
+int evaluarExpresion(int exp1, char operador, int exp2){
+  int resultado;
+
+  if (operador == "+") {
+    resultado = exp1 + exp2;
+  }
+  else {
+    if (operador == "-") {
+      resultado = exp1 - exp2;
+    }
+    else {
+      if (operador == "*") {
+        resultado = exp1 * exp2;
+      }
+      else {
+        if (operador == "/") {
+          resultado = exp1 / exp2;
+        }
+      }
+    }
+  }
+
+  return resultado;
+}
 
 /*
 Notas:

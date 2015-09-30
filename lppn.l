@@ -4,7 +4,7 @@
 
 %{
 #include "analizador_sintactico.tab.h"
-}%
+%}
 
 Ops_Suma "+"|"-"
 Ops_Mult "*"|"/"
@@ -38,12 +38,11 @@ VAR_NAME [a-zA-Z][a-zA-Z0-9]*
 {Ops_Mult}          { printf("Ingresaste una op mult \n"); yylval.simbolo = yytext[0]; return OPM;}
 {BOOLEAN}           { printf("Ingresaste un booleano \n"); return BOOL;}
 {STRING}		        { printf("Ingresaste un string \n"); yylval.string ; return STRING;}
-{NUMBER}            { printf("Ingresaste un numero \n"); yyval.numero = atoi(yytext); return NUMBER;}
+{NUMBER}            { printf("Ingresaste un numero \n"); yylval.numero = atoi(yytext); return NUMBER;}
 {Ops_Logicas}       { printf("Ingresaste una op logica \n"); return OPSL;}
 {VAR_NAME}          { printf("Ingresaste una variable \n"); yylval.variable; return VAR;}
 
 [ \t\n]+            { } /* ignorar enters y tabs*/
 .                   {printf("error lexico \n"),yylineno; exit(1);}
-
 
 %%
