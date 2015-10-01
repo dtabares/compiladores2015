@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-
 int evaluarExpresion(int exp1, char operador, int exp2);
 %}
 
@@ -76,19 +75,19 @@ int main() {
 int evaluarExpresion(int exp1, char operador, int exp2){
   int resultado;
 
-  if (operador == "+") {
+  if (operador == '+') {
     resultado = exp1 + exp2;
   }
   else {
-    if (operador == "-") {
+    if (operador == '-') {
       resultado = exp1 - exp2;
     }
     else {
-      if (operador == "*") {
+      if (operador == '*') {
         resultado = exp1 * exp2;
       }
       else {
-        if (operador == "/") {
+        if (operador == '/') {
           resultado = exp1 / exp2;
         }
       }
