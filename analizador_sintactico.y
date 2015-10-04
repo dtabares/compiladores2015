@@ -3,6 +3,10 @@
 #include <stdlib.h>
 #include <math.h>
 int evaluarExpresion(int exp1, char operador, int exp2);
+
+//-- Lexer prototype required by bison, aka getNextToken()
+int yylex();
+int yyerror(const char *p) { printf("error");}
 %}
 
 %union {
