@@ -26,7 +26,7 @@ int yyerror(const char *p) { printf("error");}
 %token MOSTRAR
 %token PI
 %token PD
-%token GE
+%token ASIG
 %token LI
 %token LD
 %token MQ

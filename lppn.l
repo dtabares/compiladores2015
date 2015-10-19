@@ -12,6 +12,7 @@ Ops_Logicas "no"|"y"|"o"|"mayor_a"|"menor_a"|"igual_a"|"menor_igual_a"|"mayor_ig
 NUMBER [0-9]+
 STRING ["]{1}.{2,255}["]{1}
 BOOLEAN "verdadero"|"falso"
+/* Las variables deben comenzar con letras ya sea mayus o minus */
 VAR_NAME [a-zA-Z][a-zA-Z0-9]*
 
 
@@ -22,7 +23,7 @@ VAR_NAME [a-zA-Z][a-zA-Z0-9]*
 "mostrar"           { printf("MOSTRAR \n"); return MOSTRAR;}
 "("                 { printf("PI \n"); return PI;}
 ")"                 { printf("PD \n"); return PD;}
-"guardar_en"	      { printf("GE \n"); return GE;}
+"guardar_en"	      { printf("ASIGNACION \n"); return ASIG;}
 "{"                 { printf("LI \n"); return LI;}
 "}"                 { printf("LD \n"); return LD;}
 "mientras_que"	    { printf("MQ \n"); return MQ;}
@@ -38,6 +39,7 @@ VAR_NAME [a-zA-Z][a-zA-Z0-9]*
 {Ops_Mult}          { printf("Ingresaste una op mult \n"); yylval.simbolo = yytext[0]; return OPM;}
 {BOOLEAN}           { printf("Ingresaste un booleano \n"); return BOOL;}
 {STRING}		        { printf("Ingresaste un string \n"); yylval.string ; return STRING;}
+                    /* Si encuentra un número lo convierte a int y devuelve el token NUMBER */
 {NUMBER}            { printf("Ingresaste un numero \n"); yylval.numero = atoi(yytext); return NUMBER;}
 {Ops_Logicas}       { printf("Ingresaste una op logica \n"); return OPSL;}
 {VAR_NAME}          { printf("Ingresaste una variable \n"); yylval.variable; return VAR;}
