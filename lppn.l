@@ -4,11 +4,11 @@
 
 %{
 #include "analizador_sintactico.tab.h"
+#include "tablaSimbolos.c"
 %}
 
 Ops_Suma "+"|"-"
 Ops_Mult "*"|"/"
-Ops_Logicas "no"|"y"|"o"|"mayor_a"|"menor_a"|"igual_a"|"menor_igual_a"|"mayor_igual_a"
 NUMBER [0-9]+
 STRING ["]{1}.{2,255}["]{1}
 BOOLEAN "verdadero"|"falso"
@@ -31,18 +31,25 @@ VAR_NAME [a-zA-Z][a-zA-Z0-9]*
 "fin"			          { printf("FIN \n"); return OTROFIN;} /* que era este fin?*/
 "si"			          { printf("SI \n"); return SI;}
 "entonces"		      { printf("ENTONCES \n"); return ENTONCES;}
-"sino"			    { printf("SINO \n"); return SINO;}
-"sumar_uno"		    { printf("SU \n"); return SU;}
-"restar_uno"	    { printf("RU \n"); return RU;}
-"es"			    { printf("ES \n"); return ES;}
-";"					{ printf("putoYcoma \n"); return PC;}
+"sino"			        { printf("SINO \n"); return SINO;}
+"sumar_uno"		      { printf("SU \n"); return SU;}
+"restar_uno"	      { printf("RU \n"); return RU;}
+"es"			          { printf("ES \n"); return ES;}
+";"					        { printf("putoYcoma \n"); return PC;}
+"no"                { printf("No \n"); strcpy(yylval.ops,n); return NO;}
+"y"                 { printf("Y \n"); strcpy(yylval.ops,y); return Y;}
+"o"                 { printf("O \n"); strcpy(yylval.ops,o); return O;}
+"mayor_a"           { printf("O \n"); strcpy(yylval.ops,w); return MAY;}
+"menor_a"           { printf("O \n"); strcpy(yylval.ops,s); return MEN;}
+"igual_a"           { printf("O \n"); strcpy(yylval.ops,i); return IG;}
+"menor_igual_a"     { printf("O \n"); strcpy(yylval.ops,a); return MENI;}
+"mayor_igual_a"     { printf("O \n"); strcpy(yylval.ops,d); return MAYI;}
 {Ops_Suma}          { printf("Ingresaste una op suma \n"); strcpy(yylval.ops,yytext); return OPS;}
 {Ops_Mult}          { printf("Ingresaste una op mult \n"); strcpy(yylval.ops,yytext); return OPM;}
 {BOOLEAN}           { printf("Ingresaste un booleano \n"); return BOOL;}
 {STRING}		        { printf("Ingresaste un string \n"); yylval.string ; return STRING;}
                     /* Si encuentra un número lo convierte a int y devuelve el token NUMBER */
 {NUMBER}            { printf("Ingresaste un numero \n"); yylval.numero = atoi(yytext); return NUMBER;}
-{Ops_Logicas}       { printf("Ingresaste una op logica \n"); strcpy(yylval.ops,yytext); return OPSL;}
 {VAR_NAME}          { printf("Ingresaste una variable \n"); strcpy(yylval.variable,yytext); return VAR;}
 
 [ \t\n]+            { } /* ignorar enters y tabs*/
