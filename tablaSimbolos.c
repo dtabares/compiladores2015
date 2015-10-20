@@ -13,4 +13,3 @@ typedef struct tabla {
   char name[50];
   variable variables[50];
 } Tabla;
-

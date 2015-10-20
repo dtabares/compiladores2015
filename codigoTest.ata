@@ -1,10 +1,7 @@
 Inicio
-
-5 guardar_en a 
+5 guardar_en a
 10 guardar_en b
 a+b guardar_en c
-
 si c es 15 
 entonces hacer mostrar("El resultado es correcto")
-
 Fin
