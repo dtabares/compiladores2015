@@ -6,6 +6,7 @@
 //-- Lexer prototype required by bison, aka getNextToken()
 int yylex();
 int yyerror(const char *p) { printf("error");}
+char validarTipo(char tipo1, char operacion, char tipo2);
 %}
 
 %union {
@@ -18,6 +19,7 @@ int yyerror(const char *p) { printf("error");}
 
 /* Declara tabla de simbolos */
 Tabla tablaDeSimbolos;
+
 
 /* Inicio Declaraciones */
 /* Son de la forma:
@@ -50,7 +52,7 @@ Tabla tablaDeSimbolos;
 %token STRING
 %token <numero> NUMBER
 %token OPSL
-%token <variable> VAR 
+%token <variable> VAR
 %left <simbolo> OPS
 %left <simbolo> OPM
 %type <tipoDato> expresion
@@ -80,13 +82,13 @@ cuerpo: sentencia PC cuerpo
 		| sentencia PC
 		;
 sentencia: expresion ASIG VAR {{InsertarEnTablaDeSimbolos($3,$1)}}
-		| SI expresion ENTONCES sentencia		
+		| SI expresion ENTONCES sentencia
 		;
 /* $3 es la variable, $1 es el tipo */
-		
+
 expresion: expresion OPS expresion {{ $$ = validarTipo($1,$2,$3); }} /* deben concordar los tipos y la operacion y devolver el tipo resultante*/
-          | NUMBER  {{$$ = 'n';}} 
-		  | STRING {{$$ = 's';}} 
+          | NUMBER  {{$$ = 'n';}}
+		  | STRING {{$$ = 's';}}
 		  | BOOL {{$$ = 'b';}}
 		  | VAR	{{$$ = getTipo($1);}} /*hacer funcion para buscar en tabla de sim. y si no la encuentra tira error*/
 		  ;
@@ -101,56 +103,38 @@ int main() {
 }
 
 void InsertarEnTablaDeSimbolos(char nombre[255],char tipo){
- /*buscar si existe, sino insertar */ 
+ /*buscar si existe, sino insertar */
 };
 
-char validarTipo(char tipo1, char tipo2, char operacion){
+char validarTipo(char tipo1, char operacion, char tipo2){
+  if (tipo1 == tipo2) {
 
-	if (tipo1 == tipo2) {
-		
-			if (tipo1 == 'b'){
-			
-				/* definir cada token como un char */
-				
-				switch(operacion){
-				case 'no': /* hacer */
-				break;
-				case 'y': /* hacer */
-				break;
-				case 'o': /* hacer */
-				break;
-				case 'mayor_a': /* hacer */
-				break;
-				case 'menor_a': /* hacer */
-				break;
-				case 'igual_a': /* hacer */
-				break;
-				case 'menor_igual_a': /* hacer */
-				break;
-				case 'mayor_igual_a': /* hacer */
-				break;
-				default:yyerror("Error: operador invalido");
-			
-			if (tipo1 == 'n'){
-				
-				switch(operacion){
-				case '+': /* hacer */
-				break;
-				case '-': /* hacer */
-				break;
-				case '/': /* hacer */
-				break;
-				case '*': /* hacer */
-				break;			
-				default:yyerror("Error: operador invalido");
-			
-			}
-		}
-	}
-	}
-	else {yyerror("Error: tipos de variable incompatibles")}
+    if (operacion == 'n' || operacion == 'y' || operacion == 'o') {
+      if (tipo1 == 'b') {
+        return 'b';
+      }
+      else{
+        yyerror("Error: Operacion no permitida");
+      }
+    }
+    else {
+      if (operacion == '+' || operacion == '-' || operacion == '/' || operacion == '*' || operacion == 'w' || operacion == 's' || operacion == 'i' || operacion == 'a' || operacion == 'd') {
+        if (tipo1 == 'n') {
+          return 'n';
+        }
+        else{
+          yyerror("Error: Operacion no permitida");
+        }
+      }
+      else{
+        yyerror("Error:Tipo de operador desconocido");
+      }
+    }
+  }
+  else{
+    yyerror("Error: tipos de variable incompatibles");
+  }
 
-	}
 };
 
 char getTipo(char nombre[255]){
