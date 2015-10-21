@@ -7,55 +7,30 @@
 int yylex();
 int yyerror(const char *p) { printf("error");}
 char validarTipo(char tipo1, char operacion, char tipo2);
+
+/* Declara tabla de simbolos */
+Tabla tablaDeSimbolos;
 %}
 
 %union {
   int numero;
   char* string;
-  char  simbolo; /*hacer conversion de operacion logica a char (en el lex!!!!) */
+  char  simbolo;
   char variable[255];
   char tipoDato;
 };
-
-/* Declara tabla de simbolos */
-Tabla tablaDeSimbolos;
-
 
 /* Inicio Declaraciones */
 /* Son de la forma:
                     %token <nombre_del_terminal> */
 
-%token INICIO
-%token FIN
-%token LEER
-%token MOSTRAR
-%token PI
-%token PD
-%token ASIG
-%token LI
-%token LD
-%token MQ
-%token HACER
-%token OTROFIN
-%token SI
-%token ENTONCES
-%token SINO
-%token SU
-%token RU
-%token ES
-%token PC
-/*
-%token OPS
-%token OPM
-*/
-%token BOOL
-%token STRING
+%token INICIO FIN LEER MOSTRAR ASIG MQ HACER SI ENTONCES SINO SU RU ES BOOL STRING
+%token <simbolo> PI PD LI LD OPSL PC
 %token <numero> NUMBER
-%token OPSL
 %token <variable> VAR
 %left <simbolo> OPS
 %left <simbolo> OPM
-%type <tipoDato> expresion
+%type <tipoDato> expresion programa cuerpo sentencia
 
 /* Fin Declaraciones */
 
