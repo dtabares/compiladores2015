@@ -24,7 +24,8 @@ Tabla tablaDeSimbolos;
 /* Son de la forma:
                     %token <nombre_del_terminal> */
 
-%token INICIO FIN LEER MOSTRAR ASIG MQ HACER SI ENTONCES SINO SU RU ES BOOL STRING
+%token <tipoDato> INICIO FIN
+%token LEER MOSTRAR ASIG MQ HACER SI ENTONCES SINO SU RU ES BOOL STRING
 %token <simbolo> PI PD LI LD OPSL PC
 %token <numero> NUMBER
 %token <variable> VAR

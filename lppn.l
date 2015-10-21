@@ -1,11 +1,13 @@
-%option noyywrap
-%option yylineno
-
-
 %{
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
 #include "analizador_sintactico.tab.h"
 #include "tablaSimbolos.c"
 %}
+
+%option noyywrap
+%option yylineno
 
 Ops_Suma "+"|"-"
 Ops_Mult "*"|"/"
@@ -34,19 +36,19 @@ VAR_NAME [a-zA-Z][a-zA-Z0-9]*
 "sumar_uno"		      { printf("SU \n"); return SU;}
 "restar_uno"	      { printf("RU \n"); return RU;}
 "es"			          { printf("ES \n"); return ES;}
-";"					        { printf("putoYcoma \n"); return PC;}
-"no"                { printf("No \n"); strcpy(yylval.ops,n); return NO;}
-"y"                 { printf("Y \n"); strcpy(yylval.ops,y); return Y;}
-"o"                 { printf("O \n"); strcpy(yylval.ops,o); return O;}
-"mayor_a"           { printf("O \n"); strcpy(yylval.ops,w); return MAY;}
-"menor_a"           { printf("O \n"); strcpy(yylval.ops,s); return MEN;}
-"igual_a"           { printf("O \n"); strcpy(yylval.ops,i); return IG;}
-"menor_igual_a"     { printf("O \n"); strcpy(yylval.ops,a); return MENI;}
-"mayor_igual_a"     { printf("O \n"); strcpy(yylval.ops,d); return MAYI;}
-{Ops_Suma}          { printf("Ingresaste una op suma \n"); strcpy(yylval.ops,yytext); return OPS;}
-{Ops_Mult}          { printf("Ingresaste una op mult \n"); strcpy(yylval.ops,yytext); return OPM;}
+"no"                { printf("No \n"); yylval.simbolo = 'n'; return NO;}
+"y"                 { printf("Y \n"); yylval.simbolo = 'y'; return Y;}
+"o"                 { printf("O \n"); yylval.simbolo = 'o'; return O;}
+"mayor_a"           { printf("Mayor A \n"); yylval.simbolo = 'w' ; return MAY;}
+"menor_a"           { printf("Menor A \n"); yylval.simbolo = 's'; return MEN;}
+"igual_a"           { printf("Igual A \n"); yylval.simbolo = 'i'; return IG;}
+"menor_igual_a"     { printf("Menor Igual A \n"); yylval.simbolo = 'a'; return MENI;}
+"mayor_igual_a"     { printf("Mayor Igual A \n"); yylval.simbolo = 'd'; return MAYI;}
+{Ops_Suma}          { printf("Ingresaste una op suma \n"); yylval.simbolo = yytext[0]; return OPS;}
+{Ops_Mult}          { printf("Ingresaste una op mult \n"); yylval.simbolo = yytext[0]; return OPM;}
 {BOOLEAN}           { printf("Ingresaste un booleano \n"); return BOOL;}
 {STRING}		        { printf("Ingresaste un string \n"); yylval.string ; return STRING;}
+";"					        { printf("putoYcoma \n"); return PC;}
                     /* Si encuentra un número lo convierte a int y devuelve el token NUMBER */
 {NUMBER}            { printf("Ingresaste un numero \n"); yylval.numero = atoi(yytext); return NUMBER;}
 {VAR_NAME}          { printf("Ingresaste una variable \n"); strcpy(yylval.variable,yytext); return VAR;}
