@@ -52,7 +52,7 @@ VAR_NAME [a-zA-Z][a-zA-Z0-9]*
 {NUMBER}            { printf("Ingresaste un numero \n"); yylval.numero = atoi(yytext); return NUMBER;}
 {VAR_NAME}          { printf("Ingresaste una variable \n"); strcpy(yylval.variable,yytext); return VAR;}
 
-[ \t\n]+            { } /* ignorar enters y tabs*/
+[ \t]+            { } /* ignorar tabs*/
 .                   {printf("error lexico \n"),yylineno; exit(1);}
 
 %%
