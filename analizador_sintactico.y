@@ -57,8 +57,13 @@ cuerpo: sentencia PC cuerpo
 		| sentencia PC
 		;
 sentencia: expresion ASIG VAR {{InsertarEnTablaDeSimbolos($3,$1)}}
-		| SI expresion ENTONCES sentencia
+		| condicional
+    |
 		;
+
+condicional:    SI PI expresion PD LI cuerpo LD                         {{if ($3 != 'b'){yyerror("Error: Operacion no permitida");} }}
+              | SI PI expresion PD LI cuerpo LD SINO LI cuerpo LD       {{if ($3 != 'b'){yyerror("Error: Operacion no permitida");} }}
+              | SI PI expresion PD LI cuerpo LD SINO LI condicional LD       {{if ($3 != 'b'){yyerror("Error: Operacion no permitida");} }}
 /* $3 es la variable, $1 es el tipo */
 
 expresion: expresion OPS expresion {{ $$ = validarTipo($1,$2,$3); }} /* deben concordar los tipos y la operacion y devolver el tipo resultante*/
