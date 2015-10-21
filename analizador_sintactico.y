@@ -53,25 +53,34 @@ s = string
 
 programa: INICIO cuerpo FIN;
 
-cuerpo: sentencia PC cuerpo
-		| sentencia PC
-		;
-sentencia: expresion ASIG VAR {{InsertarEnTablaDeSimbolos($3,$1)}}
-		| condicional
-    |
-		;
+cuerpo:         sentencia PC cuerpo
+		            | sentencia PC
+		            ;
 
-condicional:    SI PI expresion PD LI cuerpo LD                         {{if ($3 != 'b'){yyerror("Error: Operacion no permitida");} }}
-              | SI PI expresion PD LI cuerpo LD SINO LI cuerpo LD       {{if ($3 != 'b'){yyerror("Error: Operacion no permitida");} }}
-              | SI PI expresion PD LI cuerpo LD SINO LI condicional LD       {{if ($3 != 'b'){yyerror("Error: Operacion no permitida");} }}
+
+sentencia:      asignacion
+		          | condicional
+              | ciclo
+		          ;
+
+asignacion:     expresion ASIG VAR                                        {{InsertarEnTablaDeSimbolos($3,$1);}}
+              ;
+
+ciclo:          MQ PI expresion PD LI cuerpo LD                           {{if ($3 != 'b'){yyerror("Error: Operacion no permitida");} }}
+
+condicional:    SI PI expresion PD LI cuerpo LD                           {{if ($3 != 'b'){yyerror("Error: Operacion no permitida");} }}
+              | SI PI expresion PD LI cuerpo LD SINO LI cuerpo LD         {{if ($3 != 'b'){yyerror("Error: Operacion no permitida");} }}
+              | SI PI expresion PD LI cuerpo LD SINO LI condicional LD    {{if ($3 != 'b'){yyerror("Error: Operacion no permitida");} }}
+              ;
+
+
 /* $3 es la variable, $1 es el tipo */
-
-expresion: expresion OPS expresion {{ $$ = validarTipo($1,$2,$3); }} /* deben concordar los tipos y la operacion y devolver el tipo resultante*/
-          | NUMBER  {{$$ = 'n';}}
-		  | STRING {{$$ = 's';}}
-		  | BOOL {{$$ = 'b';}}
-		  | VAR	{{$$ = getTipo($1);}} /*hacer funcion para buscar en tabla de sim. y si no la encuentra tira error*/
-		  ;
+expresion:      expresion OPS expresion {{ $$ = validarTipo($1,$2,$3); }} /* deben concordar los tipos y la operacion y devolver el tipo resultante*/
+              | NUMBER  {{$$ = 'n';}}
+		          | STRING {{$$ = 's';}}
+		          | BOOL {{$$ = 'b';}}
+		          | VAR	{{$$ = getTipo($1);}} /*hacer funcion para buscar en tabla de sim. y si no la encuentra tira error*/
+		          ;
 %%
 
 /* Código de Usuario */
