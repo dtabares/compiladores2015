@@ -30,7 +30,7 @@ Tabla tablaDeSimbolos;
 %token <variable> VAR
 %left <simbolo> OPS
 %left <simbolo> OPM
-%type <tipoDato> expresion programa cuerpo sentencia
+%type <tipoDato> expresion cuerpo programa sentencia condicional ciclo asignacion
 
 /* Fin Declaraciones */
 
@@ -51,9 +51,10 @@ n = numero
 s = string
 */
 
-programa: INICIO cuerpo FIN;
+programa:         INICIO cuerpo FIN
+                ;
 
-cuerpo:         sentencia PC cuerpo
+cuerpo:           sentencia PC cuerpo
 		            | sentencia PC
 		            ;
 
