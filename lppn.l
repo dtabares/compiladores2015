@@ -28,7 +28,6 @@ VAR_NAME [a-zA-Z][a-zA-Z0-9]*
 "}"                 { printf("LD \n"); return LD;}
 "mientras_que"	    { printf("MQ \n"); return MQ;}
 "hacer"			        { printf("HACER \n"); return HACER;}
-"fin"			          { printf("FIN \n"); return OTROFIN;} /* que era este fin?*/
 "si"			          { printf("SI \n"); return SI;}
 "entonces"		      { printf("ENTONCES \n"); return ENTONCES;}
 "sino"			        { printf("SINO \n"); return SINO;}
