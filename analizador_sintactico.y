@@ -9,7 +9,7 @@ int yyerror(const char *p) { printf("error");}
 char validarTipo(char tipo1, char operacion, char tipo2);
 
 /* Declara tabla de simbolos */
-Tabla tablaDeSimbolos;
+Tabla *tablaDeSimbolos;
 %}
 
 %union {
@@ -93,9 +93,8 @@ int main() {
   /* Inicializar tablaDeSimbolos*/
 }
 
-void InsertarEnTablaDeSimbolos(char nombre[255],char tipo){
- /*buscar si existe, sino insertar */
-};
+tablaDeSimbolos.insertar(char nombre[255],char tipo);
+
 
 char validarTipo(char tipo1, char operacion, char tipo2){
   if (tipo1 == tipo2) {
@@ -128,11 +127,7 @@ char validarTipo(char tipo1, char operacion, char tipo2){
 
 };
 
-char getTipo(char nombre[255]){
-
-/* busca nombre de variable en tabla de simbolos y devuelve el tipo asociado */
-
-};
+tablaDeSimbolos.getTipo(char nombre[255]);
 
 
 /*
