@@ -11,6 +11,7 @@
 
 Ops_Suma "+"|"-"
 Ops_Mult "*"|"/"
+Ops_Logicas "no"|"y"|"o"|"mayor_a"|"menor_a"|"igual_a"|"menor_igual_a"|"mayor_igual_a"
 NUMBER [0-9]+
 STRING ["]{1}.{2,255}["]{1}
 BOOLEAN "verdadero"|"falso"
@@ -36,18 +37,11 @@ VAR_NAME [a-zA-Z][a-zA-Z0-9]*
 "sumar_uno"		      { printf("SU \n"); return SU;}
 "restar_uno"	      { printf("RU \n"); return RU;}
 "es"			          { printf("ES \n"); return ES;}
-"no"                { printf("No \n"); yylval.simbolo = 'n'; return NO;}
-"y"                 { printf("Y \n"); yylval.simbolo = 'y'; return Y;}
-"o"                 { printf("O \n"); yylval.simbolo = 'o'; return O;}
-"mayor_a"           { printf("Mayor A \n"); yylval.simbolo = 'w' ; return MAY;}
-"menor_a"           { printf("Menor A \n"); yylval.simbolo = 's'; return MEN;}
-"igual_a"           { printf("Igual A \n"); yylval.simbolo = 'i'; return IG;}
-"menor_igual_a"     { printf("Menor Igual A \n"); yylval.simbolo = 'a'; return MENI;}
-"mayor_igual_a"     { printf("Mayor Igual A \n"); yylval.simbolo = 'd'; return MAYI;}
+{Ops_Logicas}       { printf("Op Logica \n"); return OPS;}
 {Ops_Suma}          { printf("Ingresaste una op suma \n"); yylval.simbolo = yytext[0]; return OPS;}
 {Ops_Mult}          { printf("Ingresaste una op mult \n"); yylval.simbolo = yytext[0]; return OPM;}
 {BOOLEAN}           { printf("Ingresaste un booleano \n"); return BOOL;}
-{STRING}		        { printf("Ingresaste un string \n"); yylval.string ; return STRING;}
+{STRING}		        { printf("Ingresaste un string \n"); yylval.string = yytext; return STRING;}
 ";"					        { printf("putoYcoma \n"); return PC;}
                     /* Si encuentra un número lo convierte a int y devuelve el token NUMBER */
 {NUMBER}            { printf("Ingresaste un numero \n"); yylval.numero = atoi(yytext); return NUMBER;}
