@@ -2,14 +2,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-/*#include <tablaDeSimbolos>*/
+#include "tablaSimbolos.c"
 //-- Lexer prototype required by bison, aka getNextToken()
 int yylex();
 int yyerror(const char *p) { printf("error");}
 char validarTipo(char tipo1, char operacion, char tipo2);
 
 /* Declara tabla de simbolos */
-Tabla *tablaDeSimbolos;
 %}
 
 %union {
@@ -24,7 +23,8 @@ Tabla *tablaDeSimbolos;
 /* Son de la forma:
                     %token <nombre_del_terminal> */
 
-%token INICIO FIN LEER MOSTRAR ASIG MQ HACER SI ENTONCES SINO SU RU ES BOOL STRING
+%token <tipoDato> INICIO FIN
+%token LEER MOSTRAR ASIG MQ HACER SI ENTONCES SINO SU RU ES BOOL STRING
 %token <simbolo> PI PD LI LD OPSL PC
 %token <numero> NUMBER
 %token <variable> VAR
@@ -64,7 +64,7 @@ sentencia:      asignacion
               | ciclo
 		          ;
 
-asignacion:     expresion ASIG VAR                                        {{InsertarEnTablaDeSimbolos($3,$1);}}
+asignacion:     expresion ASIG VAR                                        {{insertar($3,$1);}}
               ;
 
 ciclo:          MQ PI expresion PD LI cuerpo LD                           {{if ($3 != 'b'){yyerror("Error: Operacion no permitida");} }}
@@ -87,47 +87,71 @@ expresion:      expresion OPS expresion {{ $$ = validarTipo($1,$2,$3); }} /* deb
 /* Código de Usuario */
 
 int main() {
+  crear();
   yyparse();
+  imprimir();
   return 0;
   /* Inicializar tablaDeSimbolos*/
 }
 
-tablaDeSimbolos.insertar(char nombre[255],char tipo);
-
-
 char validarTipo(char tipo1, char operacion, char tipo2){
+ 
+ printf("validando tipo...\n");
+  
   if (tipo1 == tipo2) {
 
-    if (operacion == 'n' || operacion == 'y' || operacion == 'o') {
-      if (tipo1 == 'b') {
-        return 'b';
-      }
-      else{
-        yyerror("Error: Operacion no permitida");
-      }
+	printf("tipos de variables iguales...\n");
+    //if (operacion == 'n' || operacion == 'y' || operacion == 'o') {
+	
+	if(operacion == 'b'){
+		
+			printf("tipo de operacion booleana...\n");
+		    
+			if (tipo1 == 'b') {
+
+				return 'b';
+
+			}
+			
+			else{
+	
+				yyerror("Error: Operacion no permitida");
+			
+			}	
     }
-    else {
-      if (operacion == '+' || operacion == '-' || operacion == '/' || operacion == '*' || operacion == 'w' || operacion == 's' || operacion == 'i' || operacion == 'a' || operacion == 'd') {
-        if (tipo1 == 'n') {
-          return 'n';
-        }
-        else{
-          yyerror("Error: Operacion no permitida");
-        }
-      }
-      else{
-        yyerror("Error:Tipo de operador desconocido");
-      }
+	
+	else if{
+
+			printf("tipo de operacion aritmetica...\n");
+			
+			if (operacion == '+' || operacion == '-' || operacion == '/' || operacion == '*') {
+				
+				if (tipo1 == 'n') {
+			
+					return 'n';
+			
+				}
+        
+			else{
+						yyerror("Error: Operacion no permitida");
+			}
+	}
+	
+	else{
+	
+	yyerror("Error:Tipo de operador desconocido");
+	
+	}
     }
   }
+  
   else{
-    yyerror("Error: tipos de variable incompatibles");
+  
+		yyerror("Error: tipos de variable incompatibles");
+
   }
 
 };
-
-tablaDeSimbolos.getTipo(char nombre[255]);
-
 
 /*
 Notas:

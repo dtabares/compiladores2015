@@ -15,17 +15,17 @@ typedef struct tabla {
 Tabla tablaDeSimbolos;
 
 /*Definicion de funciones*/
-Tabla crear();
-int insertar(char nombre[255],char tipo);
+void crear();
+void insertar(char nombre[255],char tipo);
 void remover(char nombre[255]);
 char getTipo(char nombre[255]);
 int existe(char nombre[255]);
-
+void imprimir();
 
 /*Implementacion de funciones*/
 
 /* Crea una tabla de signos y reserva espacio en memoria*/
-Tabla crear(){
+void crear(){
 
       int i=0;
       for (i; i<50; i++){
@@ -34,11 +34,11 @@ Tabla crear(){
       
       }
 
-      return tablaDeSimbolos;
+    //  return tablaDeSimbolos;
      
 }
      
-int insertar(char nombre[255],char tipo){
+void insertar(char nombre[255],char tipo){
 
      if (existe(nombre)==0){
      
@@ -51,10 +51,10 @@ int insertar(char nombre[255],char tipo){
              int i = 0;
              for (i; i<50; i++){
          
-             if (tablaDeSimbolos.variables[i] == NULL){       
-                                                     
-                 tablaDeSimbolos.variables[i] = temp;
-                 return 1;
+                 if (tablaDeSimbolos.variables[i] == NULL){       
+                                                         
+                     tablaDeSimbolos.variables[i] = temp;
+                     return 1;
 
              }
 
@@ -119,36 +119,15 @@ int existe(char nombre[255]){
         
 }
 
-void test(){
-
-     printf("Creando tabla... \n");
-     crear();
-     printf("Tabla creada con exito! \n");     
-     printf("Insertando variables en tabla... \n");
-     insertar("a",'n');
-     insertar("b",'n');
-     insertar("pruebaString",'s');
-     insertar("a",'n');
-     insertar("b",'n');
-     insertar("b",'n');
-     insertar("pruebaBoolean",'b');
-     printf("Variables insertadas con exito! \n");    
-     printf("Validando valores insertados... \n");
+void imprimir(){
+	
+	 printf("Imprmiendo tabla de simbolos \n");     
      int i=0;
-     for (i;i<10;i++){
+     for (i;i<50;i++){
       
          if (tablaDeSimbolos.variables[i]!=NULL){
-            printf("Tabla de simbolos en posicion %d | %s | %c \n",i,tablaDeSimbolos.variables[i]->nombre, getTipo(tablaDeSimbolos.variables[i]->nombre));
+            printf("Tabla de simbolos en posicion %d | nombre: %s | tipo: %c \n",i,tablaDeSimbolos.variables[i]->nombre, getTipo(tablaDeSimbolos.variables[i]->nombre));
             }
      }
-     printf("Test concluido! \n");
-     
-     
-}
-
-main(){
-
-    test();
-    system("PAUSE");
-       
+	
 }
