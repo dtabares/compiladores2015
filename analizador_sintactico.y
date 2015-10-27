@@ -95,62 +95,38 @@ int main() {
 }
 
 char validarTipo(char tipo1, char operacion, char tipo2){
- 
- printf("validando tipo...\n");
-  
+
+  printf("validando tipo...\n");
+
   if (tipo1 == tipo2) {
-
-	printf("tipos de variables iguales...\n");
-    //if (operacion == 'n' || operacion == 'y' || operacion == 'o') {
-	
-	if(operacion == 'b'){
-		
-			printf("tipo de operacion booleana...\n");
-		    
-			if (tipo1 == 'b') {
-
-				return 'b';
-
+    printf("tipos de variables iguales...\n");
+    if(operacion == 'b'){
+      printf("tipo de operacion booleana...\n");
+      if (tipo1 == 'b') {
+			     return 'b';
+      }
+      else {
+        yyerror("Error: Operacion no permitida");
 			}
-			
-			else{
-	
-				yyerror("Error: Operacion no permitida");
-			
-			}	
     }
-	
-	else if{
-
-			printf("tipo de operacion aritmetica...\n");
-			
-			if (operacion == '+' || operacion == '-' || operacion == '/' || operacion == '*') {
-				
-				if (tipo1 == 'n') {
-			
-					return 'n';
-			
-				}
-        
-			else{
-						yyerror("Error: Operacion no permitida");
-			}
-	}
-	
-	else{
-	
-	yyerror("Error:Tipo de operador desconocido");
-	
-	}
+    else {
+      if (operacion == '+' || operacion == '-' || operacion == '/' || operacion == '*') {
+        printf("tipo de operacion aritmetica...\n");
+        if (tipo1 == 'n') {
+          return 'n';
+        }
+        else{
+          yyerror("Error: Operacion no permitida");
+        }
+      }
+      else {
+        yyerror("Error:Tipo de operador desconocido");
+      }
     }
   }
-  
   else{
-  
 		yyerror("Error: tipos de variable incompatibles");
-
   }
-
 };
 
 /*

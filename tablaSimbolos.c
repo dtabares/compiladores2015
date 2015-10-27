@@ -29,20 +29,20 @@ void crear(){
 
       int i=0;
       for (i; i<50; i++){
-        
-        tablaDeSimbolos.variables[i] = NULL;  
-      
+
+        tablaDeSimbolos.variables[i] = NULL;
+
       }
 
     //  return tablaDeSimbolos;
-     
+
 }
-     
+
 void insertar(char nombre[255],char tipo){
 
      if (existe(nombre)==0){
-     
-                            
+
+
              Variable * temp;
              temp = malloc(sizeof(Variable));
              strcpy(temp->nombre,nombre);
@@ -50,84 +50,84 @@ void insertar(char nombre[255],char tipo){
 
              int i = 0;
              for (i; i<50; i++){
-         
-                 if (tablaDeSimbolos.variables[i] == NULL){       
-                                                         
+
+                 if (tablaDeSimbolos.variables[i] == NULL){
+
                      tablaDeSimbolos.variables[i] = temp;
-                     return 1;
+                     //return 1;
 
              }
 
-         }                                           
-                                                 
+         }
+
      }
-     
-     return 0;
+
+     //return 0;
 
 }
 
 void remover(char nombre[255]){
-     
+
      if (existe(nombre)==1){
-      
-      /*Remover*/                                            
-                                                 
+
+      /*Remover*/
+
      }
-     
+
 }
 
 
 char getTipo(char nombre[255]){
-     
+
      if (existe(nombre)==1){
-      
-        int i=0; 
-        
+
+        int i=0;
+
         for (i; i<50; i++){
-            
+
            if (tablaDeSimbolos.variables[i]!=NULL && strcmp(tablaDeSimbolos.variables[i]->nombre, nombre)==0){
 
              return tablaDeSimbolos.variables[i]->tipo;
-                                                      
+
             }
-           
-            
-        }                                                 
+
+
+        }
      }
-     
-     return 'u';   
+
+     return 'u';
 }
 
 int existe(char nombre[255]){
 
        int i=0;
-      
+
        for (i; i<50; i++){
-         
+
          if (tablaDeSimbolos.variables[i]!=NULL){
-             
+
              if (strcmp(tablaDeSimbolos.variables[i]->nombre, nombre)==0){
-                                  
+
                return 1;
-               
+
                }
 
          }
        }
-       
+
        return 0;
-        
+
 }
 
 void imprimir(){
-	
-	 printf("Imprmiendo tabla de simbolos \n");     
+
+	 printf("Imprmiendo tabla de simbolos \n");
      int i=0;
      for (i;i<50;i++){
-      
+
          if (tablaDeSimbolos.variables[i]!=NULL){
             printf("Tabla de simbolos en posicion %d | nombre: %s | tipo: %c \n",i,tablaDeSimbolos.variables[i]->nombre, getTipo(tablaDeSimbolos.variables[i]->nombre));
             }
      }
-	
+
 }
