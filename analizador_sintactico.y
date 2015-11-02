@@ -100,12 +100,7 @@ char validarTipo(char tipo1, char operacion, char tipo2){
   
   if (tipo1 == tipo2) {
 
-	printf("tipos de variables iguales...\n");
-    //if (operacion == 'n' || operacion == 'y' || operacion == 'o') {
-	
 	if(operacion == 'b'){
-		
-			printf("tipo de operacion booleana...\n");
 		    
 			if (tipo1 == 'b') {
 
@@ -113,18 +108,14 @@ char validarTipo(char tipo1, char operacion, char tipo2){
 
 			}
 			
-			else{
+			else {
 	
 				yyerror("Error: Operacion no permitida");
 			
 			}	
     }
 	
-	else if{
-
-			printf("tipo de operacion aritmetica...\n");
-			
-			if (operacion == '+' || operacion == '-' || operacion == '/' || operacion == '*') {
+	else if (operacion == '+' || operacion == '-' || operacion == '/' || operacion == '*') {
 				
 				if (tipo1 == 'n') {
 			
@@ -132,17 +123,20 @@ char validarTipo(char tipo1, char operacion, char tipo2){
 			
 				}
         
-			else{
+				else{
+					
 						yyerror("Error: Operacion no permitida");
-			}
+				
+				}
+			
 	}
 	
-	else{
+	else {
 	
-	yyerror("Error:Tipo de operador desconocido");
+		yyerror("Error:Tipo de operador desconocido");
 	
 	}
-    }
+  
   }
   
   else{
