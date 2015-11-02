@@ -95,8 +95,6 @@ int main() {
 }
 
 char validarTipo(char tipo1, char operacion, char tipo2){
- 
- printf("validando tipo...\n");
   
   if (tipo1 == tipo2) {
 
