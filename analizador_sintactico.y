@@ -5,7 +5,7 @@
 #include "tablaSimbolos.c"
 //-- Lexer prototype required by bison, aka getNextToken()
 int yylex();
-int yyerror(const char *p) { printf("error");}
+int yyerror(const char *p) { printf("%s \n", p);}
 char validarTipo(char tipo1, char operacion, char tipo2);
 
 /* Declara tabla de simbolos */
@@ -95,50 +95,41 @@ int main() {
 }
 
 char validarTipo(char tipo1, char operacion, char tipo2){
-  
+
   if (tipo1 == tipo2) {
 
 	if(operacion == 'b'){
-		    
-			if (tipo1 == 'b') {
 
 				return 'b';
 
-			}
-			
-			else {
-	
-				yyerror("Error: Operacion no permitida");
-			
-			}	
     }
-	
+
 	else if (operacion == '+' || operacion == '-' || operacion == '/' || operacion == '*') {
-				
+
 				if (tipo1 == 'n') {
-			
+
 					return 'n';
-			
+
 				}
-        
+
 				else{
-					
+
 						yyerror("Error: Operacion no permitida");
-				
+
 				}
-			
+
 	}
-	
+
 	else {
-	
+
 		yyerror("Error:Tipo de operador desconocido");
-	
+
 	}
-  
+
   }
-  
+
   else{
-  
+
 		yyerror("Error: tipos de variable incompatibles");
 
   }
