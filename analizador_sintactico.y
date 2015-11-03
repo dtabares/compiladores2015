@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include "tablaSimbolos.c"
+#include "arbol.c"
 //-- Lexer prototype required by bison, aka getNextToken()
 int yylex();
 int yyerror(const char *p) { printf("%s \n", p);}
@@ -88,6 +89,7 @@ expresion:      expresion OPS expresion {{ $$ = validarTipo($1,$2,$3); }} /* deb
 
 int main() {
   crear();
+  inicializarArbol();
   yyparse();
   imprimir();
   return 0;
