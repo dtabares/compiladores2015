@@ -12,12 +12,14 @@ typedef NodoArbol *ptrNodoArbol; /* sinónimo de NodoArbol* */
 
 
 /* prototipos */
-void insertaNodo(ptrNodoArbol *ptrArbol, char valor[255]);
-
+void insertarNodo(ptrNodoArbol *ptrArbol, char valor[255]);
 void inicializarArbol();
 
+/*Variables*/
+ptrNodoArbol ptrRaiz;
+
 /* inserta un nodo dentro del árbol */
-void insertaNodo( ptrNodoArbol *ptrArbol, char valor[255] ) {
+void insertarNodo( ptrNodoArbol *ptrArbol, char valor[255] ) {
  /* si el árbol está vacío */
  if (*ptrArbol == NULL) {
  *ptrArbol = malloc(sizeof(NodoArbol));
@@ -34,9 +36,9 @@ void insertaNodo( ptrNodoArbol *ptrArbol, char valor[255] ) {
  } else {
  /* el dato a insertar es menor que el dato en el nodo actual */
  if (valor < (*ptrArbol)->valor) {
- insertaNodo(&((*ptrArbol)->ptrIzq), valor);
+ insertarNodo(&((*ptrArbol)->ptrIzq), valor);
  } else if (valor > (*ptrArbol)->valor) {
- insertaNodo(&((*ptrArbol)->prtDer), valor);
+ insertarNodo(&((*ptrArbol)->prtDer), valor);
  } else {
  printf("dup");
  }
@@ -44,5 +46,5 @@ void insertaNodo( ptrNodoArbol *ptrArbol, char valor[255] ) {
 }
 
 void inicializarArbol(){
-  ptrNodoArbol ptrRaiz = NULL; /* árbol inicialemnte vacío */
+  ptrRaiz = NULL; /* árbol inicialemnte vacío */
 }

@@ -52,7 +52,7 @@ n = numero
 s = string
 */
 
-programa:         INICIO cuerpo FIN
+programa:         INICIO cuerpo FIN {{insertarNodo(&ptrRaiz,&$2);}}
                 ;
 
 cuerpo:           sentencia PC cuerpo
