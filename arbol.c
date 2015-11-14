@@ -12,39 +12,41 @@ typedef NodoArbol *ptrNodoArbol; /* sinónimo de NodoArbol* */
 
 
 /* prototipos */
-void insertarNodo(ptrNodoArbol *ptrArbol, char valor[255]);
+ptrNodoArbol insertarNodo(char valor[255], ptrNodoArbol *ptrArbolIzq, ptrNodoArbol *ptrArbolDer);
+ptrNodoArbol insertarHoja(char valor[255]);
 void inicializarArbol();
 
 /*Variables*/
 ptrNodoArbol ptrRaiz;
 
 /* inserta un nodo dentro del árbol */
-void insertarNodo( ptrNodoArbol *ptrArbol, char valor[255] ) {
- /* si el árbol está vacío */
- if (*ptrArbol == NULL) {
- *ptrArbol = malloc(sizeof(NodoArbol));
+ptrNodoArbol insertarNodo( char valor[255], ptrNodoArbol *ptrArbolIzq, ptrNodoArbol *ptrArbolDer ) {
 
- /* si la memoria está asignada, entonces asigna el dato */
- if (*ptrArbol != NULL) {
+/*Crea el nodo que va a devolver*/
+ptrNodoArbol ptrNodo;
+*ptrNodo = malloc(sizeof(NodoArbol));
 
- strcpy((*ptrArbol)->valor,valor);
- (*ptrArbol)->ptrIzq = NULL;
- (*ptrArbol)->prtDer = NULL;
- } else {
- printf("no se inserto %s. No hay memoria disponible.n", valor);
- }
- } else {
- /* el dato a insertar es menor que el dato en el nodo actual */
- if (valor < (*ptrArbol)->valor) {
- insertarNodo(&((*ptrArbol)->ptrIzq), valor);
- } else if (valor > (*ptrArbol)->valor) {
- insertarNodo(&((*ptrArbol)->prtDer), valor);
- } else {
- printf("dup");
- }
- }
+/*Asigno los parametros*/
+(*ptrNodo)->valor = &valor;
+(*ptrNodo)->ptrIzq = *ptrArbolIzq;
+(*ptrNodo)->prtDer = *ptrArbolDer;
+
+return ptrNodo;
+
 }
 
+ptrNodoArbol insertarHoja(char valor[255]){
+  /*Crea el nodo que va a devolver*/
+  ptrNodoArbol ptrNodo;
+  *ptrNodo = malloc(sizeof(NodoArbol));
+
+  /*Asigno los parametros*/
+  (*ptrNodo)->valor = &valor;
+  (*ptrNodo)->ptrIzq = NULL;
+  (*ptrNodo)->prtDer = NULL;
+
+  return ptrNodo;
+}
 void inicializarArbol(){
   ptrRaiz = NULL; /* árbol inicialemnte vacío */
 }
