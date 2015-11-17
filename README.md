@@ -32,5 +32,8 @@ Incorporación de acciones semánticas en Bison (explica %token y %type): https:
 Terminales vs No Terminales (explicacion simple):
 https://ar.answers.yahoo.com/question/index?qid=20061119161115AAbTcX9
 
+Arbol:
+https://www.codejobs.biz/es/blog/2013/07/02/estructura-de-datos-en-c-arboles
+
 %token para terminales
 %type para no-terminales

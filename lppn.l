@@ -41,8 +41,8 @@ VAR_NAME [a-zA-Z][a-zA-Z0-9]*
 					;return OPS;}
 {Ops_Suma}          { printf("Ingresaste una op suma \n"); yylval.simbolo = yytext[0]; return OPS;}
 {Ops_Mult}          { printf("Ingresaste una op mult \n"); yylval.simbolo = yytext[0]; return OPS;}
-{BOOLEAN}           { printf("Ingresaste un booleano \n"); return BOOL;}
-{STRING}		        { printf("Ingresaste un string \n"); yylval.string = yytext; return STRING;}
+{BOOLEAN}           { printf("Ingresaste un booleano \n"); strcpy(yylval.string,yytext);return BOOL;}
+{STRING}		        { printf("Ingresaste un string \n"); strcpy(yylval.string,yytext); return STRING;}
 ";"					        { printf("puntoYcoma \n"); return PC;}
                     /* Si encuentra un número lo convierte a int y devuelve el token NUMBER */
 {NUMBER}            { printf("Ingresaste un numero \n"); yylval.numero = atoi(yytext); return NUMBER;}

@@ -18,6 +18,7 @@ char validarTipo(char tipo1, char operacion, char tipo2);
   char  simbolo;
   char variable[255];
   char tipoDato;
+  nodoArbol arbol;
 };
 
 /* Inicio Declaraciones */
@@ -31,7 +32,7 @@ char validarTipo(char tipo1, char operacion, char tipo2);
 %token <variable> VAR
 %left <simbolo> OPS
 %left <simbolo> OPM
-%type <tipoDato> expresion cuerpo programa sentencia condicional ciclo asignacion
+%type <tipoDato,arbol> expresion cuerpo programa sentencia condicional ciclo asignacion
 
 /* Fin Declaraciones */
 
@@ -54,36 +55,35 @@ s = string
 
 //insertarNodo(&ptrRaiz,&$2)
 
-programa:         INICIO cuerpo FIN
+programa:         INICIO cuerpo FIN                                   {{$<arbol>$ = $<arbol>2;}}
                 ;
 
-cuerpo:           sentencia PC cuerpo
-		            | sentencia PC
+cuerpo:           sentencia PC cuerpo                                 {{$<arbol>$ = insertarNodo('s',$<arbol>1,$<arbol>3);}}
+		            | sentencia PC                                        {{$<arbol>$ = $<arbol>1;}}
 		            ;
 
 
-sentencia:      asignacion
-		          | condicional
-              | ciclo
+sentencia:      asignacion                                             {{$<arbol>$ = $<arbol>1;}}
+		          | condicional                                            {{$<arbol>$ = $<arbol>1;}}
+              | ciclo                                                  {{$<arbol>$ = $<arbol>1;}}
 		          ;
 
-asignacion:     expresion ASIG VAR                                        {{ insertar($3,$1); $$.arbol = insertarNodo($2,$1.arbol,$3.arbol )}}
+asignacion:     expresion ASIG VAR                                        {{ insertar($3,$1); $<arbol>$ = insertarNodo('=',$<arbol>1,$<arbol>3 );}}
               ;
 
-ciclo:          MQ PI expresion PD LI cuerpo LD                           {{if ($3 != 'b') {yyerror("Error: Operacion no permitida");} }}
+ciclo:          MQ PI expresion PD LI cuerpo LD                           {{if ($3 != 'b') {yyerror("Error: Operacion no permitida");};$<arbol>$ = insertarNodo('w',$<arbol>3,$<arbol>6);}}
 
-condicional:    SI PI expresion PD LI cuerpo LD                           {{if ($3 != 'b') {yyerror("Error: Operacion no permitida");} }}
-              | SI PI expresion PD LI cuerpo LD SINO LI cuerpo LD         {{if ($3 != 'b') {yyerror("Error: Operacion no permitida");} }}
-              | SI PI expresion PD LI cuerpo LD SINO LI condicional LD    {{if ($3 != 'b') {yyerror("Error: Operacion no permitida");} }}
+condicional:    SI PI expresion PD LI cuerpo LD                           {{if ($3 != 'b') {yyerror("Error: Operacion no permitida");};$<arbol>$ = insertarNodo('i',$<arbol>3,$<arbol>6); }}
+              | SI PI expresion PD LI cuerpo LD SINO LI cuerpo LD         {{if ($3 != 'b') {yyerror("Error: Operacion no permitida");}; }}
               ;
 
 
 /* $3 es la variable, $1 es el tipo */
-expresion:      expresion OPS expresion {{ $$ = validarTipo($1,$2,$3); $$.arbol = insertarNodo($2,$1.arbol,$3.arbol }} /* deben concordar los tipos y la operacion y devolver el tipo resultante*/
-              | NUMBER  {{$$ = 'n'; $$.arbol  = insertarHoja($1); }}
-		          | STRING {{$$ = 's'; $$.arbol  = insertarHoja($1); }}
-		          | BOOL {{$$ = 'b'; $$.arbol  = insertarHoja($1); }}
-		          | VAR	{{$$ = getTipo($1); $$.arbol  = insertarHoja($1); }} /*hacer funcion para buscar en tabla de sim. y si no la encuentra tira error*/
+expresion:      expresion OPS expresion {{ $$ = validarTipo($1,$2,$3); $<arbol>$ = insertarNodo($2,$<arbol>1,$<arbol>3);}} /* deben concordar los tipos y la operacion y devolver el tipo resultante*/
+              | NUMBER  {{$$ = 'n'; $<arbol>$ = insertarHoja($1); }}
+		          | STRING {{$$ = 's'; $<arbol>$  = insertarHoja($<string>1); }}
+		          | BOOL {{$$ = 'b'; $<arbol>$  = insertarHoja($<string>1); }}
+		          | VAR	{{$$ = getTipo($1); $<arbol>$ = insertarHoja($1); }} /*hacer funcion para buscar en tabla de sim. y si no la encuentra tira error*/
 		          ;
 %%
 

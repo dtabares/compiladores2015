@@ -2,12 +2,12 @@
 #include <stdlib.h>
 
 
-struct nodoArbol {
+typedef struct nodoArbol {
   char valor[255];
   struct nodoArbol *ptrIzq;
   struct nodoArbol *prtDer;
-};
-typedef struct nodoArbol NodoArbol; /* sinónimo de la estructura nodoArbol */
+} NodoArbol;
+
 typedef NodoArbol *ptrNodoArbol; /* sinónimo de NodoArbol* */
 
 
