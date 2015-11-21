@@ -42,7 +42,7 @@ VAR_NAME [a-zA-Z][a-zA-Z0-9]*
 {Ops_Mult}          { printf("Ingresaste una op mult \n"); yylval.simbolo = yytext[0]; return OPS;}
 {BOOLEAN}           { printf("Ingresaste un booleano \n"); strcpy(yylval.string,yytext);return BOOL;}
 {STRING}		        { printf("Ingresaste un string \n"); strcpy(yylval.string,yytext); return STRING;}
-";"					        { printf("puntoYcoma \n"); return PC;}
+";"					        { return PC;}
                     /* Si encuentra un número lo convierte a int y devuelve el token NUMBER */
 {NUMBER}            { yylval.numero = atoi(yytext); printf("Ingresaste un numero \n"); return NUMBER;}
 {VAR_NAME}          { printf("Ingresaste una variable \n"); strcpy(yylval.variable,yytext); return VAR;}
