@@ -15,10 +15,12 @@ ptrNodoArbol ptrRaiz;
 /* inserta un nodo dentro del Arbol */
 ptrNodoArbol insertarNodo( char valor[255], ptrNodoArbol *ptrArbolIzq, ptrNodoArbol *ptrArbolDer ) {
 
+
     /*Crea el nodo que va a devolver*/
     ptrNodoArbol ptrNodo;
+    printf("%s\n", "LOG: reservando memoria");
     ptrNodo = malloc(sizeof(NodoArbol));
-
+    printf("%s\n", "LOG: memoria reservada");
     /*Asigno los parametros*/
     strcpy((ptrNodo)->valor,valor);
     (ptrNodo)->ptrIzq = *ptrArbolIzq;

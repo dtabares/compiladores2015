@@ -26,7 +26,7 @@ void imprimir();
 
 /* Crea una tabla de signos y reserva espacio en memoria*/
 void crear(){
-
+      printf("%s\n", "LOG: creando Tabla de Simbolos");
       int i=0;
       for (i; i<50; i++){
 
@@ -39,7 +39,7 @@ void crear(){
 }
 
 void insertar(char nombre[255],char tipo){
-
+      printf("%s\n", "LOG: insertando variable en Tabla de Simbolos");
      if (existe(nombre)==0){
 
              Variable * temp;
@@ -113,7 +113,7 @@ int existe(char nombre[255]){
 
 void imprimir(){
 
-	 printf("Imprmiendo tabla de simbolos \n");
+	 printf("LOG: Imprmiendo tabla de simbolos \n");
      int i=0;
      for (i;i<50;i++){
 
