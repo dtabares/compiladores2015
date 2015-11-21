@@ -3,7 +3,7 @@ Inicio
 10 guardar_en b;
 a+b guardar_en c;
 mientras_que(a menor_a 10){
-a+1 guardar_en a;
-15 guardar_en d;
+  a+1 guardar_en a;
+  15 guardar_en d;
 };
 Fin
