@@ -27,7 +27,7 @@ char validarTipo(char tipo1, char operacion, char tipo2);
 %token LEER MOSTRAR ASIG MQ HACER SI ENTONCES SINO SU RU ES BOOL STRING
 %token <simbolo> PI PD LI LD OPSL PC
 %token <numero> NUMBER
-%token <variable> VAR
+%token <variable,arbol> VAR
 %left <simbolo> OPS
 %left <simbolo> OPM
 %type <tipoDato,arbol> expresion cuerpo programa sentencia condicional ciclo asignacion

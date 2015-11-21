@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include "estructuraArbol.h"
 #include "analizador_sintactico.tab.h"
 %}
 
