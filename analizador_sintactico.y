@@ -66,7 +66,7 @@ sentencia:      asignacion                                             {{printf(
               | ciclo                                                  {{printf("%s\n", "LOG: Regla sentencia ciclo"); $<arbol>$ = $<arbol>1;}}
 		          ;
 
-asignacion:     expresion ASIG VAR                                     {{printf("%s\n", "LOG: Regla asignacion"); printf("%s %c\n","******** tipo de Dato: ", &$<tipoDato>1); insertar($<variable>3,$<tipoDato>1); $<arbol>$ = insertarNodo("=",&$<arbol>1,&$<arbol>3 );}} // aca arbol 3 no esta declarado como un tipo arbol en la linea %type <tipoDato,arbol>
+asignacion:     expresion ASIG VAR                                     {{printf("%s\n", "LOG: Regla asignacion"); printf("%s %c\n","******** tipo de Dato: ", $<tipoDato>1); insertar($<variable>3,$<tipoDato>1); $<arbol>$ = insertarNodo("=",&$<arbol>1,&$<arbol>3 );}} // aca arbol 3 no esta declarado como un tipo arbol en la linea %type <tipoDato,arbol>
               ;
 
 ciclo:          MQ PI expresion PD LI cuerpo LD                           {{printf("%s\n", "LOG: Regla ciclo"); if ($<tipoDato>3 != 'b') {yyerror("Error: Operacion no permitida");};$<arbol>$ = insertarNodo("w",&$<arbol>3,&$<arbol>6);}}
