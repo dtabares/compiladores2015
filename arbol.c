@@ -18,7 +18,7 @@ ptrNodoArbol insertarNodo( char valor[255], ptrNodoArbol *ptrArbolIzq, ptrNodoAr
 
     /*Crea el nodo que va a devolver*/
     ptrNodoArbol ptrNodo;
-    printf("%s\n", "LOG: reservando memoria para Nodo");
+    //printf("%s\n", "LOG: reservando memoria para Nodo");
     ptrNodo = malloc(sizeof(NodoArbol));
     printf("%s\n", "LOG: memoria reservada para Nodo");
     /*Asigno los parametros*/
