@@ -16,7 +16,7 @@ Tabla tablaDeSimbolos;
 
 /*Definicion de funciones*/
 void crear();
-void insertar(char nombre[255],char tipo);
+int insertar(char nombre[255],char tipo);
 void remover(char nombre[255]);
 char getTipo(char nombre[255]);
 int existe(char nombre[255]);
@@ -38,10 +38,11 @@ void crear(){
 
 }
 
-void insertar(char nombre[255],char tipo){
-      printf("%s\n", "LOG: insertando variable en Tabla de Simbolos");
-     if (existe(nombre)==0){
+int insertar(char nombre[255],char tipo){
 
+     if (existe(nombre)==0){
+     
+                            
              Variable * temp;
              temp = malloc(sizeof(Variable));
              strcpy(temp->nombre,nombre);
@@ -49,13 +50,20 @@ void insertar(char nombre[255],char tipo){
 
              int i = 0;
              for (i; i<50; i++){
+         
+             if (tablaDeSimbolos.variables[i] == NULL){       
+                                                     
+                 tablaDeSimbolos.variables[i] = temp;
+                 return 1;
 
-                 if (tablaDeSimbolos.variables[i] == NULL){
-
-                     tablaDeSimbolos.variables[i] = temp;
              }
-         }
+
+         }                                           
+                                                 
      }
+     
+     return 0;
+
 }
 
 void remover(char nombre[255]){
@@ -123,3 +131,15 @@ void imprimir(){
      }
 
 }
+/*
+main(){
+       
+crear();
+insertar("variable1",'n');
+insertar("variable2",'p');
+insertar("variable3",'b');
+imprimir();
+system("PAUSE");
+
+}
+*/
