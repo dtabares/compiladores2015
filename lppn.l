@@ -38,8 +38,8 @@ VAR_NAME [a-zA-Z][a-zA-Z0-9]*
 "restar_uno"	      { printf("RU \n"); return RU;}
 "es"			          { printf("ES \n"); return ES;}
 {Ops_Logicas}       { printf("Op Logica \n"); yylval.simbolo = 'b'; strcpy(yylval.string,yytext); return OPS;}
-{Ops_Suma}          { yylval.simbolo = yytext[0]; printf("Ingresaste una op suma \n"); return OPS;}
-{Ops_Mult}          { printf("Ingresaste una op mult \n"); yylval.simbolo = yytext[0];strcpy(yylval.string,yytext); return OPS;}
+{Ops_Suma}          { yylval.simbolo = strdup(yytext)[0]; printf("Ingresaste el simbolo %c \n",yylval.simbolo); return OPS;}
+{Ops_Mult}          { printf("Ingresaste una op mult \n"); yylval.simbolo = yytext[0] ;yylval.string = strdup(yytext); return OPS;}
 {BOOLEAN}           { printf("Ingresaste un booleano \n"); yylval.string = strdup(yytext);return BOOL;}
 {STRING}		        { yylval.string = strdup(yytext); printf("Ingresaste un string \n");return STRING;}
 ";"					        { return PC;}

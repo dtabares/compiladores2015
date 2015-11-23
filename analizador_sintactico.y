@@ -77,7 +77,7 @@ condicional:    SI PI expresion PD LI cuerpo LD                           {{prin
 
 
 /* $3 es la variable, $1 es el tipo */
-expresion:      expresion OPS expresion {{ printf("%s\n", "LOG: Regla expresion"); $<arbol>$ = insertarNodo($<string>2,&$<arbol>1,&$<arbol>3); $<tipoDato>$ = validarTipo($<tipoDato>1,$<simbolo>2,$<tipoDato>3); }} /* deben concordar los tipos y la operacion y devolver el tipo resultante*/
+expresion:      expresion OPS expresion {{ printf("%s\n", "LOG: Regla expresion"); $<arbol>$ = insertarNodo($<simbolo>2,&$<arbol>1,&$<arbol>3); printf("%s %c \n","Valor Simbolo: ",$<simbolo>2);$<tipoDato>$ = validarTipo($<tipoDato>1,$<simbolo>2,$<tipoDato>3); }} /* deben concordar los tipos y la operacion y devolver el tipo resultante*/
               | NUMBER  {{printf("%s\n", "LOG: Regla numero"); $<arbol>$ = insertarHoja(convertNumberToString($1)); $<tipoDato>$ = 'n'; printf("%s" "%c\n", "LOG: Tipo Dato: ",$<tipoDato>$); }}
 		          | STRING {{printf("%s\n", "LOG: Regla string"); $<arbol>$  = insertarHoja($<string>1); $<tipoDato>$ = 's';}}
 		          | BOOL {{printf("%s\n", "LOG: Regla boolean"); printf("%s" "%c\n", "LOG: Tipo Dato: ",$<tipoDato>$); $<arbol>$  = insertarHoja($<string>1); $<tipoDato>$ = 'b';}}
