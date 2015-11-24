@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include "estructura.h"
 #include "tablaSimbolos.c"
 #include "arbol.c"
 //-- Lexer prototype required by bison, aka getNextToken()
@@ -80,10 +79,10 @@ condicional:    SI PI expresion PD LI cuerpo LD                           {{prin
 
 /* $3 es la variable, $1 es el tipo */
 expresion:      expresion OPS expresion {{ printf("%s\n", "LOG: Regla expresion"); $<arbol>$ = insertarNodo($<tipoDeDato.texto>2,&$<arbol>1,&$<arbol>3); printf("%s %c \n","Valor Simbolo: ",$<tipoDeDato.simbolo>2);$<tipoDato>$ = validarTipo($<tipoDeDato.simbolo>1,$<tipoDeDato.simbolo>2,$<tipoDato>3); }} /* deben concordar los tipos y la operacion y devolver el tipo resultante*/
-              | NUMBER  {{printf("%s\n", "LOG: Regla numero"); $<arbol>$ = insertarHoja(convertNumberToString($1)); $<tipoDeDato.simbolo>$ = 'n'; printf("%s" "%c\n", "LOG: Tipo Dato: ",$<tipoDato>$); }}
-		          | STRING {{printf("%s\n", "LOG: Regla string"); $<arbol>$  = insertarHoja($<string>1); $<tipoDato>$ = 's';}}
-		          | BOOL {{printf("%s\n", "LOG: Regla boolean"); printf("%s" "%c\n", "LOG: Tipo Dato: ",$<tipoDato>$); $<arbol>$  = insertarHoja($<string>1); $<tipoDato>$ = 'b';}}
-		          | VAR	{{printf("%s\n", "LOG: Regla variable"); $<tipoDato>$ = getTipo($<variable>1); printf("%s" "%c\n", "LOG: Tipo Dato Variable: ",$<tipoDato>$); $<arbol>$ = insertarHoja($<variable>1); }} /*hacer funcion para buscar en tabla de sim. y si no la encuentra tira error*/
+              | NUMBER  {{printf("%s\n", "LOG: Regla numero"); $<tipoDeDato.arbol>$ = insertarHoja(convertNumberToString($1)); $<tipoDeDato.simbolo>$ = 'n'; printf("%s" "%c\n", "LOG: Tipo Dato: ",$<tipoDeDato.simbolo>$); }}
+		          | STRING {{printf("%s\n", "LOG: Regla string"); $<tipoDeDato.arbol>$  = insertarHoja($<string>1); $<tipoDeDato.simbolo>$ = 's';}}
+		          | BOOL {{printf("%s\n", "LOG: Regla boolean"); $<tipoDeDato.arbol>$  = insertarHoja($<string>1); $<tipoDeDato.simbolo>$ = 'b';printf("%s" "%c\n", "LOG: Tipo Dato: ",$<tipoDeDato.simbolo>$);}}
+		          | VAR	{{printf("%s\n", "LOG: Regla variable"); $<tipoDeDato.simbolo>$ = getTipo($<variable>1); printf("%s" "%c\n", "LOG: Tipo Dato Variable: ",$<tipoDeDato.simbolo>$); $<tipoDeDato.arbol>$ = insertarHoja($<variable>1); }} /*hacer funcion para buscar en tabla de sim. y si no la encuentra tira error*/
 		          ;
 %%
 

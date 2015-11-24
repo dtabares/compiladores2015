@@ -3,7 +3,6 @@
 #include <stdio.h>
 #include <string.h>
 #include "estructuraArbol.h"
-#include "estructura.h"
 #include "analizador_sintactico.tab.h"
 %}
 
@@ -39,7 +38,7 @@ VAR_NAME [a-zA-Z][a-zA-Z0-9]*
 "restar_uno"	      { printf("RU \n"); return RU;}
 "es"			          { printf("ES \n"); return ES;}
 {Ops_Logicas}       { printf("Op Logica \n"); yylval.simbolo = 'b'; strcpy(yylval.string,yytext); return OPS;}
-{Ops_Suma}          { yylval.simbolo = strdup(yytext)[0]; printf("Ingresaste el simbolo %c \n",yylval.simbolo); return OPS;}
+{Ops_Suma}          { yylval.tipoDeDato.simbolo = strdup(yytext)[0]; printf("Ingresaste el simbolo %c \n",yylval.simbolo); yylval.tipoDeDato.texto = strdup(yytext); return OPS;}
 {Ops_Mult}          { printf("Ingresaste una op mult \n"); yylval.tipoDeDato.texto = strdup(yytext); yylval.tipoDeDato.simbolo = yytext[0] ;printf("Ingresaste el simbolo %c \n",yylval.tipoDeDato.simbolo);printf("ingresaste el simbolo en string: %s \n",yylval.tipoDeDato.texto);return OPS;}
 {BOOLEAN}           { printf("Ingresaste un booleano \n"); yylval.string = strdup(yytext);return BOOL;}
 {STRING}		        { yylval.string = strdup(yytext); printf("Ingresaste un string \n");return STRING;}
