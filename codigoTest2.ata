@@ -1,0 +1,13 @@
+Inicio
+2500 guardar_en saldo;
+1200 guardar_en deposito;
+3000 guardar_en extraccion;
+
+si(deposito mayor_a 0){
+  saldo + deposito guardar_en saldo;
+};
+
+si(extraccion mayor_a 0 y extraccion menor_a saldo){
+  saldo - extraccion guardar_en saldo;
+};
+Fin
