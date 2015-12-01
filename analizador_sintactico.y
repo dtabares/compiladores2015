@@ -54,7 +54,7 @@ n = numero
 s = string
 */
 
-programa:         INICIO cuerpo FIN                                   {{$<arbol>$ = $<arbol>2;printf("%s\n", "LOG: Recorriendo Arbol Post Order"); postOrden($<arbol>$); }}
+programa:         INICIO cuerpo FIN                                   {{$<arbol>$ = $<arbol>2;printf("%s\n", "LOG: Recorriendo Arbol Post Order"); postOrder($<arbol>$); }}
                 ;
 
 cuerpo:           sentencia PC cuerpo                                 {{printf("%s\n", "LOG: Regla sentencia;cuerpo "); $<arbol>$ = insertarNodo("s",&$<arbol>1,&$<arbol>3);}}
@@ -67,7 +67,7 @@ sentencia:      asignacion                                             {{printf(
               | ciclo                                                  {{printf("%s\n", "LOG: Regla sentencia ciclo"); $<arbol>$ = $<arbol>1;}}
 		          ;
 
-asignacion:     expresion ASIG VAR                                     {{printf("%s\n", "LOG: Regla asignacion"); insertar($<variable>3,$<tipoDato>1); $<arbol>$ = insertarNodo("=",&$<arbol>1,&$<arbol>3 );}} // aca arbol 3 no esta declarado como un tipo arbol en la linea %type <tipoDato,arbol>
+asignacion:     expresion ASIG expresion                               {{printf("%s\n", "LOG: Regla asignacion"); insertar($<variable>3,$<tipoDato>1); $<arbol>$ = insertarNodo("=",&$<arbol>1,&$<arbol>3 );}} // aca arbol 3 no esta declarado como un tipo arbol en la linea %type <tipoDato,arbol>
               ;
 
 ciclo:          MQ PI expresion PD LI cuerpo LD                           {{printf("%s\n", "LOG: Regla ciclo"); if ($<tipoDato>3 != 'b') {yyerror("Error: Operacion no permitida");};$<arbol>$ = insertarNodo("w",&$<arbol>3,&$<arbol>6);}}
