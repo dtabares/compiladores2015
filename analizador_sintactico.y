@@ -54,10 +54,10 @@ n = numero
 s = string
 */
 
-programa:         INICIO cuerpo FIN                                   {{printf("%s\n", "LOG: Regla Programa"); ;$<arbol>$ = $<arbol>2;}}
+programa:         INICIO cuerpo FIN                                   {{$<arbol>$ = $<arbol>2;printf("%s\n", "LOG: Recorriendo Arbol Post Order"); postOrden($<arbol>$); }}
                 ;
 
-cuerpo:           sentencia PC cuerpo                                 {{printf("%s\n", "LOG: Regla sentencia;cuerpo "); $<arbol>$ = insertarNodo("s",&$<arbol>1,&$<arbol>3);}} //aca es como que le pasamos $1 y $3 al arbol, pero el arbol espera como parametro 2 punteros a arboles, y no parece que estos sean punteros a arboles
+cuerpo:           sentencia PC cuerpo                                 {{printf("%s\n", "LOG: Regla sentencia;cuerpo "); $<arbol>$ = insertarNodo("s",&$<arbol>1,&$<arbol>3);}}
 		            | sentencia PC                                        {{printf("%s\n", "LOG: Regla sentencia; "); $<arbol>$ = $<arbol>1;}}
 		            ;
 

@@ -7,6 +7,7 @@
 /* prototipos */
 ptrNodoArbol insertarNodo(char valor[255], ptrNodoArbol *ptrArbolIzq, ptrNodoArbol *ptrArbolDer);
 ptrNodoArbol insertarHoja(char valor[255]);
+void postOrden(ptrNodoArbol ptrArbol);
 void inicializarArbol();
 
 /*Variables*/
@@ -44,6 +45,19 @@ ptrNodoArbol insertarHoja(char valor[255]){
 
   return ptrNodo;
 }
+
+void postOrden(ptrNodoArbol ptrArbol)
+{
+ /* si el árbol no está vacío, entonces recórrelo */
+ if (ptrArbol != NULL) {
+   printf("%s\n", "entre");
+   printf("%s\n", ptrArbol->valor);
+ postOrden(ptrArbol->ptrIzq);
+ postOrden(ptrArbol->prtDer);
+ printf("%s\n", ptrArbol->valor);
+ }
+}
+
 void inicializarArbol(){
   ptrRaiz = NULL; /* árbol inicialemnte vacío */
 }
