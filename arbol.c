@@ -19,16 +19,12 @@ ptrNodoArbol insertarNodo( char valor[255], ptrNodoArbol *ptrArbolIzq, ptrNodoAr
 
     /*Crea el nodo que va a devolver*/
     ptrNodoArbol ptrNodo;
-    //printf("%s\n", "LOG: reservando memoria para Nodo");
     ptrNodo = malloc(sizeof(NodoArbol));
-    printf("%s\n", "LOG: memoria reservada para Nodo");
     /*Asigno los parametros*/
     strcpy((ptrNodo)->valor,valor);
     printf("%s" "%s" "%s\n", "LOG: Guardando Valor ", (ptrNodo)->valor, " en el nodo");
     (ptrNodo)->ptrIzq = *ptrArbolIzq;
     (ptrNodo)->prtDer = *ptrArbolDer;
-    printf("Valor Nodo Izq: %s\n", ptrNodo->ptrIzq->valor);
-    printf("Valor Nodo Der: %s\n", ptrNodo->prtDer->valor);
 
     return ptrNodo;
 
@@ -54,7 +50,7 @@ void postOrder(ptrNodoArbol ptrArbol)
  if (ptrArbol != NULL) {
  postOrder(ptrArbol->ptrIzq);
  postOrder(ptrArbol->prtDer);
- printf("Valor Nodo: %s\n", ptrArbol->valor);
+ printf("\t Valor Nodo: %s\n", ptrArbol->valor);
  }
 }
 

@@ -54,7 +54,7 @@ n = numero
 s = string
 */
 
-programa:         INICIO cuerpo FIN                                   {{$<arbol>$ = $<arbol>2;printf("%s\n", "LOG: Recorriendo Arbol Post Order"); ptrRaiz = $<arbol>2; }}
+programa:         INICIO cuerpo FIN                                   {{$<arbol>$ = $<arbol>2; ptrRaiz = $<arbol>2; }}
                 ;
 
 cuerpo:           sentencia PC cuerpo                                 {{printf("%s\n", "LOG: Regla sentencia;cuerpo "); $<arbol>$ = insertarNodo("s",&$<arbol>1,&$<arbol>3);}}
@@ -95,6 +95,7 @@ int main() {
   crear();
   yyparse();
   imprimir();
+  printf("Recorriendo Arbol Post Order \n \n");
   postOrder(ptrRaiz);
   return 0;
   /* Inicializar tablaDeSimbolos*/
