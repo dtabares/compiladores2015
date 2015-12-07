@@ -24,9 +24,11 @@ ptrNodoArbol insertarNodo( char valor[255], ptrNodoArbol *ptrArbolIzq, ptrNodoAr
     printf("%s\n", "LOG: memoria reservada para Nodo");
     /*Asigno los parametros*/
     strcpy((ptrNodo)->valor,valor);
-    printf("%s" "%s" "%s\n", "LOG: Guardando Valor ", valor, " en el nodo");
+    printf("%s" "%s" "%s\n", "LOG: Guardando Valor ", (ptrNodo)->valor, " en el nodo");
     (ptrNodo)->ptrIzq = *ptrArbolIzq;
     (ptrNodo)->prtDer = *ptrArbolDer;
+    printf("Valor Nodo Izq: %s\n", ptrNodo->ptrIzq->valor);
+    printf("Valor Nodo Der: %s\n", ptrNodo->prtDer->valor);
 
     return ptrNodo;
 
@@ -39,7 +41,7 @@ ptrNodoArbol insertarHoja(char valor[255]){
 
   /*Asigno los parametros*/
   strcpy((ptrNodo)->valor,valor);
-  printf("%s" "%s" "%s\n", "LOG: Guardando Valor ", valor, " en la hoja");
+  printf("%s" "%s" "%s\n", "LOG: Guardando Valor ", (ptrNodo)->valor, " en la hoja");
   (ptrNodo)->ptrIzq = NULL;
   (ptrNodo)->prtDer = NULL;
 
@@ -50,22 +52,9 @@ void postOrder(ptrNodoArbol ptrArbol)
 {
  /* si el árbol no está vacío, entonces recórrelo */
  if (ptrArbol != NULL) {
-   printf("%s\n", "entre");
-   printf("%s\n", ptrArbol->valor);
  postOrder(ptrArbol->ptrIzq);
  postOrder(ptrArbol->prtDer);
- printf("%s\n", ptrArbol->valor);
- }
-}
-
-void inOrder(ptrNodoArbol ptrArbol)
-{
- /* si el árbol no está vacío, entonces recórrelo */
- if (ptrArbol != NULL) {
-      printf("%s\n", "entre");
- inOrder(ptrArbol->ptrIzq);
- printf("%s\n", ptrArbol->valor);
- inOrder(ptrArbol->prtDer);
+ printf("Valor Nodo: %s\n", ptrArbol->valor);
  }
 }
 
