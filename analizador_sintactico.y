@@ -54,28 +54,28 @@ n = numero
 s = string
 */
 
-programa:         INICIO cuerpo FIN                                   {{$<arbol>$ = $<arbol>2; ptrRaiz = $<arbol>2; }}
+programa:         INICIO cuerpo FIN                                   {{$<tipoDeDato.arbol>$ = $<tipoDeDato.arbol>2; ptrRaiz = $<tipoDeDato.arbol>2; }}
                 ;
 
-cuerpo:           sentencia PC cuerpo                                 {{printf("%s\n", "LOG: Regla sentencia;cuerpo "); $<arbol>$ = insertarNodo("s",&$<arbol>1,&$<arbol>3);}}
-		            | sentencia PC                                        {{printf("%s\n", "LOG: Regla sentencia; "); $<arbol>$ = $<arbol>1;}}
+cuerpo:           sentencia PC cuerpo                                 {{printf("%s\n", "LOG: Regla sentencia;cuerpo "); $<tipoDeDato.arbol>$ = insertarNodo("s",&$<tipoDeDato.arbol>1,&$<tipoDeDato.arbol>3);}}
+		            | sentencia PC                                        {{printf("%s\n", "LOG: Regla sentencia; "); $<tipoDeDato.arbol>$ = $<tipoDeDato.arbol>1;}}
 		            ;
 
 
-sentencia:      asignacion                                             {{printf("%s\n", "LOG: Regla sentencia asignacion"); $<arbol>$ = $<arbol>1;}}
-		          | condicional                                            {{printf("%s\n", "LOG: Regla sentencia condicional"); $<arbol>$ = $<arbol>1;}}
-              | ciclo                                                  {{printf("%s\n", "LOG: Regla sentencia ciclo"); $<arbol>$ = $<arbol>1;}}
+sentencia:      asignacion                                             {{printf("%s\n", "LOG: Regla sentencia asignacion"); $<tipoDeDato.arbol>$ = $<tipoDeDato.arbol>1;}}
+		          | condicional                                            {{printf("%s\n", "LOG: Regla sentencia condicional"); $<tipoDeDato.arbol>$ = $<tipoDeDato.arbol>1;}}
+              | ciclo                                                  {{printf("%s\n", "LOG: Regla sentencia ciclo"); $<tipoDeDato.arbol>$ = $<tipoDeDato.arbol>1;}}
 		          ;
 
-asignacion:     expresion ASIG variable                               {{printf("%s\n", "LOG: Regla asignacion");insertar($<tipoDeDato.texto>3,$<tipoDeDato.simbolo>1); $<arbol>$ = insertarNodo("=",&$<tipoDeDato.arbol>1,&$<tipoDeDato.arbol>3 );}}
+asignacion:     expresion ASIG variable                               {{printf("%s\n", "LOG: Regla asignacion");insertar($<tipoDeDato.texto>3,$<tipoDeDato.simbolo>1); $<tipoDeDato.arbol>$ = insertarNodo("=",&$<tipoDeDato.arbol>1,&$<tipoDeDato.arbol>3 );}}
               ;
 
 variable:       VAR	{{printf("%s\n", "LOG: Regla variable"); $<tipoDeDato.arbol>$ = insertarHoja($<variable>1);$<tipoDeDato.texto>$ = $<variable>1; }}
 
 
-ciclo:          MQ PI expresion PD LI cuerpo LD                           {{printf("%s\n", "LOG: Regla ciclo"); if ($<tipoDato>3 != 'b') {yyerror("Error: Operacion no permitida");};$<arbol>$ = insertarNodo("w",&$<tipoDeDato.arbol>3,&$<tipoDeDato.arbol>6);}}
+ciclo:          MQ PI expresion PD LI cuerpo LD                           {{printf("%s\n", "LOG: Regla ciclo"); if ($<tipoDato>3 != 'b') {yyerror("Error: Operacion no permitida");};$<tipoDeDato.arbol>$ = insertarNodo("w",&$<tipoDeDato.arbol>3,&$<tipoDeDato.arbol>6);}}
 
-condicional:    SI PI expresion PD LI cuerpo LD                           {{printf("%s\n", "LOG: Regla condicional"); if ($<tipoDato>3 != 'b') {yyerror("Error: Operacion no permitida");};$<arbol>$ = insertarNodo("i",&$<tipoDeDato.arbol>3,&$<tipoDeDato.arbol>6); }}
+condicional:    SI PI expresion PD LI cuerpo LD                           {{printf("%s\n", "LOG: Regla condicional"); if ($<tipoDato>3 != 'b') {yyerror("Error: Operacion no permitida");};$<tipoDeDato.arbol>$ = insertarNodo("i",&$<tipoDeDato.arbol>3,&$<tipoDeDato.arbol>6); }}
               | SI PI expresion PD LI cuerpo LD SINO LI cuerpo LD         {{printf("%s\n", "LOG: Regla condicional 2"); if ($<tipoDato>3 != 'b') {yyerror("Error: Operacion no permitida");}; }}
               ;
 
